@@ -1,7 +1,24 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  images: {
+    domains: ['example.com'], // Add any domains you need for images
+  },
+  env: {
+    CUSTOM_KEY: process.env.CUSTOM_KEY,
+  },
+  // For Sentry integration
+  sentry: {
+    hideSourceMaps: true,
+  },
+  // For production optimizations
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: false,
+  httpAgentOptions: {
+    keepAlive: true,
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

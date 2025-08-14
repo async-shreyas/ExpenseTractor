@@ -8,11 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "migrate": "ts-node --project tsconfig.migrate.json src/scripts/migrate.ts",
-    "migrate:prod": "NODE_ENV=production ts-node --project tsconfig.migrate.json src/scripts/migrate.ts",
-    "docker:build": "docker build -t expense-tracker .",
-    "docker:run": "docker run -p 3000:3000 expense-tracker",
-    "k8s:deploy": "kubectl apply -f k8s/"
+    "export": "next build && next export",
+    "analyze": "ANALYZE=true next build",
+    "test": "npm run type-check && npm run lint"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
