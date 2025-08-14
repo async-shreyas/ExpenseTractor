@@ -3,17 +3,17 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import Expense from '@/models/Expense';
 
-export async function PUT(request: NextRequest, context: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { params } = context;
+    const { id } = await params;
     const body = await request.json();
     const expense = await Expense.findOneAndUpdate(
-      { _id: params.id, userId: session.user.id, deletedAt: null },
+      { _id: id, userId: session.user.id, deletedAt: null },
       body,
       { new: true }
     );
@@ -29,17 +29,17 @@ export async function PUT(request: NextRequest, context: { params: { id: string 
   }
 }
 
-export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { params } = context;
+    const { id } = await params;
 
     const expense = await Expense.findOneAndUpdate(
-      { _id: params.id, userId: session.user.id, deletedAt: null },
+      { _id: id, userId: session.user.id, deletedAt: null },
       { deletedAt: new Date() },
       { new: true }
     );

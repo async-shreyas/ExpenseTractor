@@ -3,16 +3,15 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import Notification from '@/models/Notification';
 
-export async function PATCH(request: NextRequest, context: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
-
-    const { params } = context;
+    const { id } = await params;
     const notification = await Notification.findOneAndUpdate(
-      { _id: params.id, userId: session.user.id },
+      { _id: id, userId: session.user.id },
       { readAt: new Date() },
       { new: true }
     );
