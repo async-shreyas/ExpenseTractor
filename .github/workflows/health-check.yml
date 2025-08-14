@@ -1,0 +1,44 @@
+name: Health Check
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    name: Application Health Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check production health
+      run: |
+        response=$(curl -s -o /dev/null -w "%{http_code}" ${{ vars.PRODUCTION_URL }}/api/health)
+        if [ $response -ne 200 ]; then
+          echo "Health check failed with status code: $response"
+          exit 1
+        fi
+        echo "Health check passed"
+
+    - name: Check database connectivity
+      run: |
+        response=$(curl -s -X POST \
+          -H "Content-Type: application/json" \
+          -d '{"ping": true}' \
+          -o /dev/null -w "%{http_code}" \
+          ${{ vars.PRODUCTION_URL }}/api/db-check)
+        if [ $response -ne 200 ]; then
+          echo "Database check failed with status code: $response"
+          exit 1
+        fi
+        echo "Database check passed"
+
+    - name: Notify on failure
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        channel: '#alerts'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
