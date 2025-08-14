@@ -1,0 +1,48 @@
+import webpush from 'web-push';
+import PushSubscription from '@/models/PushSubscription';
+
+// Configure VAPID keys
+webpush.setVapidDetails(
+  'mailto:your-email@example.com',
+  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+  process.env.VAPID_PRIVATE_KEY!
+);
+
+export async function sendWebPushNotification(userId: string, title: string, message: string) {
+  try {
+    const subscriptions = await PushSubscription.find({ userId });
+    
+    const notificationPayload = JSON.stringify({
+      title,
+      body: message,
+      icon: '/icon.png',
+      badge: '/badge.png'
+    });
+
+    const sendPromises = subscriptions.map(async (subscription) => {
+      try {
+        await webpush.sendNotification(
+          {
+            endpoint: subscription.endpoint,
+            keys: {
+              p256dh: subscription.keys.p256dh,
+              auth: subscription.keys.auth
+            }
+          },
+          notificationPayload
+        );
+      } catch (error) {
+        if (error.statusCode === 410) {
+          // Subscription expired, remove it
+          await PushSubscription.findByIdAndDelete(subscription._id);
+        }
+        console.error('Error sending push notification:', error);
+      }
+    });
+
+    await Promise.all(sendPromises);
+  } catch (error) {
+    console.error('Error in sendWebPushNotification:', error);
+    throw error;
+  }
+}
