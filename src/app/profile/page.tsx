@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import Layout from '@/components/Layout';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 
 export default function ProfilePage() {
   const { user } = useSelector((state: RootState) => state.auth);
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: user?.name || '',

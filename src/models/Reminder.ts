@@ -6,14 +6,14 @@ export interface Reminder {
   title: string;
   message: string;
   frequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
-  nextRunAt: Date;
+  nextRunAt: Date | string;
   entityType: 'expense' | 'emi' | 'loan';
   entityId: string;
   email: boolean;
   inApp: boolean;
   webPush: boolean;
   active: boolean;
-  lastRunAt: Date;
+  lastRunAt: Date | string;
 }
 
 const ReminderSchema = new Schema({

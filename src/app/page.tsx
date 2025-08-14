@@ -11,6 +11,7 @@ import SummaryCards from '@/components/SummaryCards';
 import RecentExpenses from '@/components/RecentExpenses';
 import UpcomingEMIs from '@/components/UpcomingEmis';
 import NotificationPanel from '@/components/NotificationPanel';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,9 +34,9 @@ export default function Dashboard() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Welcome to ExpenseTracker</h1>
           <p className="mb-6">Please sign in to access your dashboard</p>
-          <a href="/api/auth/signin" className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">
+          <Link href="/api/auth/signin" className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">
             Sign In
-          </a>
+          </Link>
         </div>
       </div>
     );

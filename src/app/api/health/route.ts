@@ -15,10 +15,11 @@ export async function GET() {
         version: process.env.npm_package_version || '1.0.0'
       }
     });
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     return NextResponse.json({
       success: false,
-      error: 'Health check failed'
+      error: `Health check failed: ${error.message}`
     }, { status: 500 });
   }
 }

@@ -3,17 +3,21 @@ import { Reminder } from '@/models/Reminder';
 
 interface ReminderFormProps {
   reminder?: Reminder | null;
-  onSubmit: (reminder: any) => void;
+  onSubmit: (reminder: Reminder) => void;
   onCancel: () => void;
 }
 
 export default function ReminderForm({ reminder, onSubmit, onCancel }: ReminderFormProps) {
   const [formData, setFormData] = useState({
+    _id: reminder?._id || '',
+    userId: reminder?.userId || '',
+    active: reminder?.active || true,
+    lastRunAt: reminder?.lastRunAt ? new Date(reminder.lastRunAt).toISOString().slice(0, 16) : '',
     title: reminder?.title || '',
     message: reminder?.message || '',
     frequency: reminder?.frequency || 'monthly',
     nextRunAt: reminder?.nextRunAt ? new Date(reminder.nextRunAt).toISOString().slice(0, 16) : '',
-    entityType: reminder?.entityType || '',
+    entityType: reminder?.entityType || 'expense',
     entityId: reminder?.entityId || '',
     email: reminder?.email || false,
     inApp: reminder?.inApp || true,

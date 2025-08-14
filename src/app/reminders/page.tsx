@@ -22,7 +22,7 @@ export default function RemindersPage() {
     setEditingReminder(reminder);
     setShowForm(true);
   };
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitReminder = (reminderData: any) => {
     // API call to save reminder
     console.log('Saving reminder:', reminderData);
@@ -54,7 +54,7 @@ export default function RemindersPage() {
         )}
 
         <ReminderList
-          userId={user?.id || ''}
+          userId={user?._id || ''}
           onEdit={handleEditReminder}
         />
       </div>

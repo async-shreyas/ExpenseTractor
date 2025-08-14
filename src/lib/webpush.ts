@@ -21,16 +21,21 @@ export async function sendWebPushNotification(userId: string, title: string, mes
 
     const sendPromises = subscriptions.map(async (subscription) => {
       try {
+        if (!subscription.keys?.p256dh || !subscription.keys?.auth) {
+          console.error('Missing subscription keys, skipping notification for subscription:', subscription._id);
+          return;
+        }
         await webpush.sendNotification(
           {
             endpoint: subscription.endpoint,
             keys: {
-              p256dh: subscription.keys?.p256dh!,
-              auth: subscription.keys?.auth!
+              p256dh: subscription.keys.p256dh,
+              auth: subscription.keys.auth
             }
           },
           notificationPayload
         );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         if (error.statusCode === 410) {
           // Subscription expired, remove it
@@ -41,7 +46,8 @@ export async function sendWebPushNotification(userId: string, title: string, mes
     });
 
     await Promise.all(sendPromises);
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     console.error('Error in sendWebPushNotification:', error);
     throw error;
   }

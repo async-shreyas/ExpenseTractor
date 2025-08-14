@@ -36,8 +36,9 @@ export const fetchNotifications = createAsyncThunk(
       }
 
       return data.data;
-    } catch (error) {
-      return rejectWithValue('Failed to fetch notifications');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to fetch notifications: ${error.message}`);
     }
   }
 );
@@ -57,8 +58,9 @@ export const markAsRead = createAsyncThunk(
       }
 
       return id;
-    } catch (error) {
-      return rejectWithValue('Failed to mark notification as read');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to mark notification as read: ${error.message}`);
     }
   }
 );
@@ -78,8 +80,9 @@ export const markAllAsRead = createAsyncThunk(
       }
 
       return true;
-    } catch (error) {
-      return rejectWithValue('Failed to mark all notifications as read');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to mark all notifications as read: ${error.message}`);
     }
   }
 );

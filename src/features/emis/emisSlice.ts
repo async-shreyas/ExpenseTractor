@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '@/lib/store';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import { RootState } from '@/lib/store';
 
 export interface EMI {
   _id: string;
@@ -37,8 +37,9 @@ export const fetchEMIs = createAsyncThunk(
       }
 
       return data.data;
-    } catch (error) {
-      return rejectWithValue('Failed to fetch EMIs');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to fetch EMIs: ${error.message}`);
     }
   }
 );
@@ -60,8 +61,9 @@ export const addEMI = createAsyncThunk(
       }
 
       return data.data;
-    } catch (error) {
-      return rejectWithValue('Failed to add EMI');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to add EMI: ${error.message}`);
     }
   }
 );
@@ -83,8 +85,9 @@ export const updateEMI = createAsyncThunk(
       }
 
       return data.data;
-    } catch (error) {
-      return rejectWithValue('Failed to update EMI');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to update EMI: ${error.message}`);
     }
   }
 );
@@ -104,8 +107,9 @@ export const deleteEMI = createAsyncThunk(
       }
 
       return id;
-    } catch (error) {
-      return rejectWithValue('Failed to delete EMI');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to delete EMI: ${error.message}`);
     }
   }
 );

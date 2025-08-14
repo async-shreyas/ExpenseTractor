@@ -8,7 +8,7 @@ import NotificationBell from '@/components/NotificationBell';
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
 
   return (

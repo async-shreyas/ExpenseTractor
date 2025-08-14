@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '@/lib/store';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import { RootState } from '@/lib/store';
 
 export interface Expense {
   _id: string;
@@ -51,10 +51,10 @@ export const fetchExpenses = createAsyncThunk(
       if (!data.success) {
         return rejectWithValue(data.error);
       }
-
       return data.data;
-    } catch (error) {
-      return rejectWithValue('Failed to fetch expenses');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to fetch expenses: ${error.message}`);
     }
   }
 );
@@ -76,8 +76,9 @@ export const addExpense = createAsyncThunk(
       }
 
       return data.data;
-    } catch (error) {
-      return rejectWithValue('Failed to add expense');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to add expense: ${error.message}`);
     }
   }
 );
@@ -99,8 +100,9 @@ export const updateExpense = createAsyncThunk(
       }
 
       return data.data;
-    } catch (error) {
-      return rejectWithValue('Failed to update expense');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to update expense: ${error.message}`);
     }
   }
 );
@@ -120,8 +122,9 @@ export const deleteExpense = createAsyncThunk(
       }
 
       return id;
-    } catch (error) {
-      return rejectWithValue('Failed to delete expense');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(`Failed to delete expense: ${error.message}`);
     }
   }
 );
