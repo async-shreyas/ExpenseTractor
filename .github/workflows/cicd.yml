@@ -55,7 +55,7 @@ jobs:
     - name: Run Snyk security scan
       uses: snyk/actions/node@master
       env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        SNYK_TOKEN: ${{ secrets.production.SNYK_TOKEN }}
       with:
         args: --severity-threshold=high
         command: test
@@ -82,7 +82,7 @@ jobs:
     - name: Build application
       run: npm run build
       env:
-        NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+        NEXT_PUBLIC_API_URL: ${{ secrets.production.NEXT_PUBLIC_API_URL }}
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
@@ -120,7 +120,7 @@ jobs:
     - name: Run post-deployment tests
       run: |
         # Add smoke tests or health checks
-        curl -f ${{ secrets.PRODUCTION_URL }}/api/health || exit 1
+        curl -f ${{ secrets.production.PRODUCTION_URL }}/api/health || exit 1
 
   # Deploy Preview (Pull Requests)
   deploy-preview:
