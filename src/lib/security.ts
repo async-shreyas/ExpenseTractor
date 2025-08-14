@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { rateLimit } from '@/lib/rateLimit';
+import { applyRateLimit } from '@/lib/rateLimit';
 
 export async function securityMiddleware(request: NextRequest) {
   // Apply rate limiting
-  const rateLimitResult = await rateLimit(request);
+  const rateLimitResult = await applyRateLimit(request);
   if (!rateLimitResult.success) {
     return NextResponse.json(
       { success: false, error: 'Rate limit exceeded' },

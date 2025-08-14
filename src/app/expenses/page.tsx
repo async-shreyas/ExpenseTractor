@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/lib/store';
 import { fetchExpenses, addExpense, updateExpense, deleteExpense } from '@/features/expenses/expensesSlice';
@@ -16,7 +16,7 @@ export default function ExpensesPage() {
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
 
   useEffect(() => {
-    dispatch(fetchExpenses());
+    dispatch(fetchExpenses({ period: undefined, limit: 10 }));
   }, [dispatch]);
 
   const handleAddExpense = () => {

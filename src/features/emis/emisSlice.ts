@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/lib/store';
 
-interface EMI {
+export interface EMI {
   _id: string;
   institution: string;
   principal: number;

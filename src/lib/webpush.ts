@@ -3,7 +3,7 @@ import PushSubscription from '@/models/PushSubscription';
 
 // Configure VAPID keys
 webpush.setVapidDetails(
-  'mailto:your-email@example.com',
+  'mailto:shreyasnandanwar0400@gmail.com',
   process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
   process.env.VAPID_PRIVATE_KEY!
 );
@@ -25,13 +25,13 @@ export async function sendWebPushNotification(userId: string, title: string, mes
           {
             endpoint: subscription.endpoint,
             keys: {
-              p256dh: subscription.keys.p256dh,
-              auth: subscription.keys.auth
+              p256dh: subscription.keys?.p256dh!,
+              auth: subscription.keys?.auth!
             }
           },
           notificationPayload
         );
-      } catch (error) {
+      } catch (error: any) {
         if (error.statusCode === 410) {
           // Subscription expired, remove it
           await PushSubscription.findByIdAndDelete(subscription._id);

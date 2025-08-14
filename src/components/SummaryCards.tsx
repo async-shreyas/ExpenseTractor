@@ -1,4 +1,5 @@
-import { Expense, EMI } from '@/features/expenses/expensesSlice';
+import { Expense } from '@/features/expenses/expensesSlice';
+import { EMI } from '@/features/emis/emisSlice';
 
 interface SummaryCardsProps {
   expenses: Expense[];

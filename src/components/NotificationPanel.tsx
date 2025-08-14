@@ -1,13 +1,14 @@
 import { Notification } from '@/features/notifications/notificationsSlice';
 import { useDispatch } from 'react-redux';
 import { markAsRead, markAllAsRead } from '@/features/notifications/notificationsSlice';
+import type { AppDispatch } from '@/lib/store';
 
 interface NotificationPanelProps {
   notifications: Notification[];
 }
 
-export default function NotificationPanel({ notifications }: NotificationPanelProps) {
-  const dispatch = useDispatch();
+const NotificationPanel: React.FC<NotificationPanelProps> = ({ notifications }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const unreadCount = notifications.filter(n => !n.readAt).length;
 
   const handleMarkAsRead = (id: string) => {
@@ -76,3 +77,5 @@ export default function NotificationPanel({ notifications }: NotificationPanelPr
     </div>
   );
 }
+
+export default NotificationPanel;

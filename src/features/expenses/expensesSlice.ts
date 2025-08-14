@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/lib/store';
 
-interface Expense {
+export interface Expense {
   _id: string;
   title: string;
   amount: number;

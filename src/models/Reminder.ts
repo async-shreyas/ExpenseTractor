@@ -1,5 +1,21 @@
 import mongoose, { Schema } from 'mongoose';
 
+export interface Reminder {
+  _id: string;
+  userId: string;
+  title: string;
+  message: string;
+  frequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  nextRunAt: Date;
+  entityType: 'expense' | 'emi' | 'loan';
+  entityId: string;
+  email: boolean;
+  inApp: boolean;
+  webPush: boolean;
+  active: boolean;
+  lastRunAt: Date;
+}
+
 const ReminderSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   title: { type: String, required: true },

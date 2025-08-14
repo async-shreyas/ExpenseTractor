@@ -21,8 +21,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (user) {
-      dispatch(fetchExpenses());
-      dispatch(fetchEMIs(true));
+      dispatch(fetchExpenses({ period: undefined, limit: 10 }));
+      dispatch(fetchEMIs(false));
       dispatch(fetchNotifications());
     }
   }, [dispatch, user]);

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import  Reminder from '@/models/Reminder';
+import  {Reminder} from '@/models/Reminder';
 
 interface ReminderListProps {
   userId: string;
-  onEdit: (reminder: typeof Reminder) => void;
+  onEdit: (reminder: Reminder) => void;
 }
 
 export default function ReminderList({ userId, onEdit }: ReminderListProps) {
-  const [reminders, setReminders] = useState<typeof Reminder[]>([]);
+  const [reminders, setReminders] = useState<Reminder[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

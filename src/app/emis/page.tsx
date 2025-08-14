@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/lib/store';
 import { fetchEMIs, addEMI, updateEMI, deleteEMI } from '@/features/emis/emisSlice';
@@ -16,7 +16,7 @@ export default function EMIsPage() {
   const [editingEMI, setEditingEMI] = useState<EMI | null>(null);
 
   useEffect(() => {
-    dispatch(fetchEMIs());
+    dispatch(fetchEMIs(false));
   }, [dispatch]);
 
   const handleAddEMI = () => {

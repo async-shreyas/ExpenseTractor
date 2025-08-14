@@ -42,12 +42,12 @@ export async function GET(request: NextRequest) {
 
         // Send email notification
         if (reminder.email) {
-          await sendEmailNotification(reminder.userId, reminder.title, reminder.message);
+          await sendEmailNotification(reminder.userId.toString(), reminder.title, reminder.message);
         }
 
         // Send web push notification
         if (reminder.webPush) {
-          await sendWebPushNotification(reminder.userId, reminder.title, reminder.message);
+          await sendWebPushNotification(reminder.userId.toString(), reminder.title, reminder.message);
         }
 
         // Update reminder

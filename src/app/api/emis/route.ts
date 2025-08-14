@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, data: emi }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ success: false, error: error.errors }, { status: 400 });
+      return NextResponse.json({ success: false, error: error.issues }, { status: 400 });
     }
     console.error('Error creating EMI:', error);
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });

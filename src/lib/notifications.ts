@@ -32,7 +32,7 @@ export async function sendEmailNotification(userId: string, title: string, messa
     });
 
     return data;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error sending email:', error);
     
     // Log failed email

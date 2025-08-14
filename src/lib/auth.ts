@@ -12,13 +12,13 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
+    session: async ({ session, token }:{ session: any; token: any; }) => {
       if (session?.user && token?.sub) {
         session.user.id = token.sub;
       }
       return session;
     },
-    jwt: async ({ user, token }) => {
+    jwt: async ({ user, token }: { user: any; token: any; }) => {
       if (user) {
         token.uid = user.id;
       }
