@@ -2,7 +2,12 @@ import { Resend } from 'resend';
 import User from '@/models/User';
 import EmailLog from '@/models/EmailLog';
 
+if (!process.env.RESEND_API_KEY) {
+  throw new Error('RESEND_API_KEY environment variable is not set');
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 export async function sendEmailNotification(userId: string, title: string, message: string) {
   try {
