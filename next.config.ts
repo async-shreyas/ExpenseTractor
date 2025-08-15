@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['example.com'], // Add any domains you need for images
+    domains: ['expensetractor.vercel.app'], // Add any domains you need for images
   },
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,

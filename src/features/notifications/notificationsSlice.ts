@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '@/lib/store';
+// import { RootState } from '@/lib/store';
 
 export interface Notification {
   _id: string;

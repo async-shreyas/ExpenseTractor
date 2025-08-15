@@ -1,7 +1,7 @@
 'use client';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/lib/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import NotificationBell from '@/components/NotificationBell';
