@@ -1,7 +1,10 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "prisma generate && next build",
   "outputDirectory": ".next",
-  "installCommand": "npm install",
+  "installCommand": "npm install && prisma generate",
+  "env": {
+    "PRISMA_GENERATE_SKIP_AUTOINSTALL": "true"
+  },
   "framework": "nextjs",
   "functions": {
     "app/api/**/*.js": {
@@ -11,7 +14,7 @@
   "crons": [
     {
       "path": "/api/reminders/run",
-      "schedule": "0 8 * * *"
+      "schedule": "*/5 * * * *"
     }
   ]
 }
